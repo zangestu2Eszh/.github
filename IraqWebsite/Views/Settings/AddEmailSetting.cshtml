@@ -1,0 +1,71 @@
+﻿@model IraqWebsite.AuthManager.Models.EmailSettings
+
+@{
+    ViewData["Title"] = "Add Email Settings";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Create New About Us</h3>
+    </div>
+    <div class="card-body">
+        <form asp-action="AddEmailSetting" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="SmtpClient" class="control-label"></label>
+                        <input asp-for="SmtpClient" class="form-control" />
+                        <span asp-validation-for="SmtpClient" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Port" class="control-label"></label>
+                        <input asp-for="Port" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row" style="justify-content: center;">
+                <label asp-for="EnableSSl">
+                    Enable SSl
+                    <span><input asp-for="EnableSSl" class="form-control" type="checkbox" /></span>
+                </label>
+                <span asp-validation-for="EnableSSl" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row" style="justify-content: center;">
+                <label asp-for="IsActive">
+                    Is Active
+                    <span><input asp-for="IsActive" class="form-control" type="checkbox" /></span>
+                </label>
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row form-group" style="justify-content: center;">
+                <input type="submit" value="Create" class="btn btn-success col-sm-3 mr-2" />
+                <a class="btn btn-danger col-sm-3" asp-controller="Settings" asp-action="EmailSettings">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

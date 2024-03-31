@@ -1,0 +1,78 @@
+﻿@model IEnumerable<IraqWebsite.Models.Slider>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 d-flex justify-content-between">
+                <h3>Slider Section</h3>
+                <a type="button" class="btn btn-primary" asp-action="Create">Add New <i class="fa fa-plus ml-2"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card">
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Sub Title</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td><img width="75" height="75" src="@item.Img" /></td>
+                        <td>@item.Title</td>
+                        <td>@item.SubTitle</td>
+                        <td>@item.CreatedDate</td>
+                        <td>@item.UpdateDate</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                @if (User.HasClaim("Permission", "Slider Edit"))
+                                {
+                                    <a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary btn-sm mx-2"><i class="fas fa-edit"></i></a>
+                                }
+                                @if (User.HasClaim("Permission", "Slider Delete"))
+                                {
+                                    <a href="#" onclick="DeleteItem(`@item.Id`)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function DeleteItem(id) {
+        let button = event.currentTarget
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(`Sliders/DeleteConfirmed/${id}`).then((response) => {
+                    button.parentNode.parentNode.parentNode.remove()
+                    Swal.fire('Success','The Slide Deleted Successfully','success')
+                })
+            }
+        })
+    }
+</script>

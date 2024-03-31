@@ -1,0 +1,84 @@
+﻿@model IraqWebsite.ViewModels.ProjectSection.EditProjectSection
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="~/dist/css/CustemStyle/ImagePerview.css">
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 d-flex justify-content-between">
+                <h3>Project Section</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card">
+    <div class="card-body">
+        <form asp-action="EditSection" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for=" TitleAr" class="control-label"></label>
+                                <input asp-for="TitleAr" class="form-control" />
+                                <span asp-validation-for="TitleAr" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+             <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="SubTitle" class="control-label"></label>
+                                <input asp-for="SubTitle" class="form-control" />
+                                <span asp-validation-for="SubTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for=" SubTitleAr" class="control-label"></label>
+                                <input asp-for="SubTitleAr" class="form-control" />
+                                <span asp-validation-for="SubTitleAr" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+            @*<div class="row" style="justify-content: center;">
+                
+                <input asp-for="IsActive" hidden class="form-control" type="checkbox" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>*@
+            <br />
+            <div class="row form-group" style="justify-content: center;">
+                <input type="submit" value="Save" class="btn btn-success col-sm-3 mr-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/dist/js/CustemScript/ImagePreview.js"></script>

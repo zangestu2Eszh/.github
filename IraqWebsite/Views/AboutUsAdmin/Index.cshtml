@@ -1,0 +1,105 @@
+﻿@model IraqWebsite.ViewModels.AboutUs.AboutUsAdmin
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 d-flex justify-content-between">
+                <h3>About Us Section</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card">
+    <div class="card-header">
+        @if(@Model.Sections.Count() == 0) {
+            <a type="button" class="btn btn-primary" asp-action="CreateSection">Create New</a>
+        }
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+
+                    @if (User.HasClaim("Permission", "Role Policy Edit") || User.HasClaim("Permission", "Role Policy Delete"))
+                    {
+                        <th>Action</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Sections)
+                {
+                    <tr class="text-center">
+                        <td><img width="75" height="75" src="@item.ImgOne" /></td>
+                        <td>@item.Title</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                @*@if (User.HasClaim("Permission", "Role Policy Edit"))*@
+                                @*{*@
+                                    <a asp-action="EditSection" asp-route-Id="@item.Id" class="btn btn-primary mx-2"><i class="fas fa-edit"></i></a>
+                                @*}*@
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 d-flex justify-content-between">
+                <h3>About Us Page</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card">
+    <div class="card-header">
+        @if(@Model.AboutUsPages.Count() == 0) {
+            <a type="button" class="btn btn-primary" asp-action="CreatePage">Create New</a>
+        }
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+
+                    @if (User.HasClaim("Permission", "Role Policy Edit") || User.HasClaim("Permission", "Role Policy Delete"))
+                    {
+                        <th>Action</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AboutUsPages)
+                {
+                    <tr class="text-center">
+                        <td><img width="75" height="75" src="@item.ImageSectionOne" /></td>
+                        <td>@item.ManagerWordTitle</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                @*@if (User.HasClaim("Permission", "Role Policy Edit"))*@
+                                @*{*@
+                                    <a asp-action="EditPage" asp-route-Id="@item.Id" class="btn btn-primary mx-2"><i class="fas fa-edit"></i></a>
+                                @*}*@
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

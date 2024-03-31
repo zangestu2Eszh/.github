@@ -1,0 +1,70 @@
+﻿@model IraqWebsite.ViewModels.Services.ServiceDto
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class=" position-relative " style="background: url(@Model.Image); height:40vh; background-size: cover;  ">
+    <div class="overlay" style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; background: rgba(0, 0, 0, .5); "></div>
+    <div class="container h-100" style="z-index:4; position:relative">
+        <div class="breadcumb-content h-100 d-flex align-items-end pb-5">
+            <h1 class="breadcumb-title">@Model.Title</h1>
+        </div>
+    </div>
+</div>
+
+
+
+<section class=" space-top space-extra-bottom">
+        <div class="container">
+            <div class="row flex-row-reverse">
+                <div class="col-lg-8">
+                    <div class="mb-3 pb-3"><img src="@Model.Image" style="height: 490px; width: 100%; object-fit: cover;" alt="Project image"></div>
+                    <h2 class="h4">@Model.Title</h2>
+                    <p>@Model.Description</p>
+                @if(Model.ServiceFeature)
+                {
+                    <div class="row gx-0 mb-4 pb-2 pt-3   wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="col-xl-6"><img src="~/assets/img/1.jpg" alt="project image" style="height: 300px; object-fit: cover;" class="w-100"></div>
+                        <div class="col-xl-6">
+                            <div class="service-list-box">
+                                <h3 class="h5 title">@ViewData["ServiceFeatures"]</h3>
+                                <div class="list-style3">
+                                    <ul>
+                                        <li><i class="fal fa-check-circle ms-2"></i>@Model.ServiceFeatureOne</li>
+                                        <li><i class="fal fa-check-circle ms-2"></i>@Model.ServiceFeatureTwo</li>
+                                        <li><i class="fal fa-check-circle ms-2"></i>@Model.ServiceFeatureThree</li>
+                                        <li><i class="fal fa-check-circle ms-2"></i>@Model.ServiceFeatureFour</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                    <div class="row pt-3 mb-30 pb-10 gy-30   wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="col-md-6"><img src="@Model.ImageTwo" style="object-fit: cover; height: 350px;" alt="project image"></div>
+                        <div class="col-md-6"><img src="@Model.ImageThree" style="object-fit: cover; height: 350px;" alt="project image"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 put-rtl">
+                    <aside class="service-sidebar">
+
+                        <div class="widget widget_categories">
+                        <h3 class="widget_title">@ViewData["AllServices"]</h3>
+                            <ul>
+                                @foreach(var service in ViewBag.Services) {
+                                <li>
+                                    <a asp-action="Details" asp-route-id="@service.Id">@service.Title</a>
+                                </li>
+                            }
+                            </ul>
+                        </div>
+                       
+                        <div class="quote-box" style="background: url(assets/img/2.jpg) center; background-size: cover;">
+                        <h3 class="quote-box__title">@ViewData["Needhelp"]</h3>
+                        <a asp-controller="ContactUs" asp-action="Index" class="vs-btn">@ViewData["ContactUs"]<i class="far fa-arrow-right"></i></a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>

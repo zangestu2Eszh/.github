@@ -1,0 +1,87 @@
+﻿@model IraqWebsite.ViewModels.Department.CreateDepartmentDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="~/dist/css/CustemStyle/ImagePerview.css">
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 d-flex justify-content-between">
+                <h3>Create Department Page</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card card-primary">
+    <div class="card-body">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Name</label>
+                        <textarea rows="3" asp-for="Name" class="form-control"></textarea>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="NameAr" class="control-label">Name Arabic</label>
+                        <textarea rows="3" asp-for="NameAr" class="form-control" ></textarea>
+                        <span asp-validation-for="NameAr" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label">Description</label>
+                        <textarea rows="3" asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="DescriptionAr" class="control-label">Description Arabic</label>
+                        <textarea rows="3" asp-for="DescriptionAr" class="form-control" ></textarea>
+                        <span asp-validation-for="DescriptionAr" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="image-preview image-preview-container">
+                    <div class="preview">
+                        <div id="preview-selected-images"></div>
+                    </div>
+                    <label asp-for="ImageOne" for="file-upload">Upload Image One</label>
+                    <input asp-for="ImageOne" class="form-control" type="file" id="file-upload" onchange="previewImages(`image-preview-container`);" />
+                    <span asp-validation-for="ImageOne" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="image-preview image-preview-container2">
+                    <div class="preview">
+                        <div id="preview-selected-images"></div>
+                    </div>
+                    <label asp-for="ImageTwo" for="file-upload2">Upload Image Two</label>
+                    <input asp-for="ImageTwo" class="form-control" type="file" id="file-upload2" onchange="previewImages(`image-preview-container2`);" />
+                    <span asp-validation-for="ImageTwo" class="text-danger"></span>
+                </div>
+                </div>
+            </div>
+
+
+            <br />
+            <div class="row form-group" style="justify-content: center;">
+                <input type="submit" value="Create" class="btn btn-success col-sm-3 mr-2" />
+                <a class="btn btn-danger col-sm-3" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/dist/js/CustemScript/ImagePreview.js"></script>

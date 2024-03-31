@@ -1,0 +1,405 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IraqWebsite</title>
+    <!-- Google Font: Source Sans Pro -->
+
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="~/dist/css/CustemStyle/TextLength.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="icon" type="image/x-icon" href="/Images/logoI.png">
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <style>
+        .ql-snow .ql-editing {
+            left: 0 !important;
+            top: 0 !important;
+        }
+    </style>
+
+</head>
+@if (User.Identity.IsAuthenticated)
+{
+    <body class="hold-transition sidebar-mini layout-fixed">
+        <div class="wrapper">
+
+            <!-- Preloader -->
+            <div class="preloader flex-column justify-content-center align-items-center">
+                <img class="animation__shake" src="~/assets/img/logo321.svg" alt="Logo" width="380">
+            </div>
+
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                <!-- Left navbar links -->
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+            <!-- /.navbar -->
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                <!-- Brand Logo -->
+                <a asp-controller="Home" asp-action="Index" class="brand-link d-flex flex-column align-items-center">
+                    <div style="background:#fff;border-radius:10px;width:50%;height:50%;display:flex;justify-content:center">
+                        <img src="~/assets/img/logo321.svg" alt="Logo" class="" style="width:150px;margin-bottom:10px;object-fit:contain">
+                    </div>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar os-host os-theme-light  os-host-transition " style="height:80vh;overflow:scroll!important">
+                    <!-- Sidebar user panel (optional) -->
+
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
+
+                        <div class="info">
+                            <a asp-area="Identity" asp-page="/Account/Manage/Index" class="d-block">@User.Identity?.Name</a>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+                          
+                            @if (User.HasClaim("Permission", "About View"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="AboutUsAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file-alt"></i>
+                                        <p>
+                                            About Page
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+
+                            @if (User.HasClaim("Permission", "About View"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="AcadmeicTrainingAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file-alt"></i>
+                                        <p>
+                                            Acadmeic Training
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+                             <li class="nav-item">
+                                    <a asp-controller="DepartmentsAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file-alt"></i>
+                                        <p>
+                                            Departments
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="EventAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file-alt"></i>
+                                        <p>
+                                            Events
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="ManagersAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file-alt"></i>
+                                        <p>
+                                            Managers
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="ProductAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file-alt"></i>
+                                        <p>
+                                            Products
+                                        </p>
+                                    </a>
+                                </li>
+                            @if (User.HasClaim("Permission", "Contact View"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="ContactUs" asp-action="Edit" class="nav-link">
+                                        <i class="nav-icon fas fa-address-book"></i>
+                                        <p>
+                                            Contact
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                    <a asp-controller="StaticsAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Statiscs
+                                        </p>
+                                    </a>
+                                </li>
+                            <li class="nav-item">
+                                    <a asp-controller="Sliders" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Sliders
+                                        </p>
+                                    </a>
+                                </li>
+                            @if (User.HasClaim("Permission", "Portfolio View"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="BlogAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Blogs
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+
+                            @if (User.HasClaim("Permission", "News View"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="ClientAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Clients
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                    <a asp-controller="ProjectAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Projects
+                                        </p>
+                                    </a>
+                                </li>
+                            @if (User.HasClaim("Permission", "Schedule Section View"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="ServiceAdmin" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Services
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                    <a asp-controller="StructureAdmin" asp-action="Edit" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Structure
+                                        </p>
+                                    </a>
+                                </li>
+                            <li class="nav-item">
+                                    <a asp-controller="Appointment" asp-action="Index" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Appointment
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="ContactUs" asp-action="Messages" class="nav-link">
+                                        <i class="nav-icon fas fa-newspaper"></i>
+                                        <p>
+                                            Customer Recview
+                                        </p>
+                                    </a>
+                                </li>
+                            @if (User.HasClaim("Permission", "Recaptcha View"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="GoogleRecaptcha" asp-action="Edit" class="nav-link">
+                                        <i class="nav-icon fas fa-robot"></i>
+                                        <p>
+                                            Recaptcha
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                            <li class="nav-item nav-link " style="color:#c2c7d0" type="submit">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <button style="background-color:transparent; color:#c2c7d0; border:none; margin-left:-8px;">
+                                    Log out
+                                </button>
+                            </li>
+                            </form>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            @* <div class="col-sm-6">
+                        <h1 class="m-0">Dashboard</h1>
+                        </div><!-- /.col -->*@
+                            <div class="col-sm-6">
+                                @*<ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            </ol>*@
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.content-header -->
+                <!-- Main content -->
+                <section class="content">
+                    @RenderBody()
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <strong>Copyright &copy All Right Reserved Altameer System Solutions.</strong>
+                All rights reserved.
+            </footer>
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+        </div>
+        <!-- ./wrapper -->
+        <!-- jQuery -->
+        <script src="~/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="~/plugins/chart.js/Chart.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="~/dist/js/adminlte.js"></script>
+
+        <!-- DataTables  & Plugins -->
+        <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="~/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="~/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="~/plugins/jszip/jszip.min.js"></script>
+        <script src="~/plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="~/plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="~/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+        <!-- Page specific script -->
+        <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+            });
+        </script>
+        <script>
+var track_i = 1;
+    function AddTrack(){
+        var box = document.querySelector('#track-container');
+        var create_box = document.createElement('div');
+        create_box.innerHTML += `<div class="row my-2 track-box" style="border:1px dashed #ccc;border-radius:14px;padding:10px">
+                        <div class="col-md-3">
+                            <label>Title</label>
+                            <input type="text" class="form-control" name="Tracks[${track_i}].Title" required />
+                        </div>
+                        <div class="col-md-3">
+                            <label>Title Arabic</label>
+                            <input type="text" class="form-control" name="Tracks[${track_i}].TitleAr" required />
+                        </div>
+                        <div class="col-md-3">
+                            <label>Audio File</label>
+                            <input type="file"  name="Tracks[${track_i}].Audio" class="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <label>Video URL</label>
+                            <input type="text" name="Tracks[${track_i}].Url" class="form-control" />
+                        </div>
+                    </div>`;
+        box.appendChild(create_box);
+        track_i++;
+    }
+    function RemoveTrack() {
+        var box = document.querySelector('#track-container');
+        box.children[box.children.length - 1].remove()
+        track_i--;
+    }
+</script>
+    </body>
+}
+else
+{
+    <div class="w-100" style="height:100vh;  position:absolute; z-index:1;  background:url('/Images/about.jpeg') center no-repeat; background-size:cover; overflow:hidden; ">
+        <div class="overlay2" style="position:absolute;  width:100%; height:100%; top:0px; background-color:rgba(0,0,0,0.7); z-index:10; "></div>
+        <div class="container-fluid d-flex justify-content-center position-relative align-items-center h-100  " style="z-index:100;  ">
+            @RenderBody()
+        </div>
+    </div>
+}
+</html>
