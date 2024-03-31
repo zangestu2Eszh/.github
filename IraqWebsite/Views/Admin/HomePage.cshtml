@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+<section class="content-header">
+    <div class="container-fluid">
+<div class="row mb-2">
+    <div class="col-sm-6">
+        <h3>All Pages</h3>
+    </div>    
+</div>
+</div>
+</section>
+<div class="card">
+    <div class="card-body">
+        <table class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    @if (User.HasClaim("Permission", "Role Policy Edit") || User.HasClaim("Permission", "Role Policy Delete"))
+                    {
+                        
+                    }
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                         Home 
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn  mx-2 btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="true">
+                                    Sections
+                                </button>
+                                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(-69px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a class="dropdown-item" asp-controller="Sliders" asp-action="Index">Slider</a>
+                                    <a class="dropdown-item" asp-controller="ScheduleSections" asp-action="Index">Schedule</a>
+                                    <a class="dropdown-item" asp-controller="AboutUs" asp-action="Edit">About Us</a>
+                                    <a class="dropdown-item" asp-controller="OurPortfolios" asp-action="Index">Portfolio</a>
+                                    <a class="dropdown-item" asp-controller="Events" asp-action="Edit">Event</a>
+                                    <a class="dropdown-item" asp-controller="SubNews" asp-action="Index">News</a>
+                                    <a class="dropdown-item" asp-controller="Partners" asp-action="Index">Partner</a>
+                                </div>
+                            </div>
+                            <a href="#" target="_blank" class="btn btn-dark">
+                                 <i class="fa fa-link"></i> Open Page
+                            </a>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        About
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a asp-controller="AboutUsInfo" asp-action="Index" class="btn mx-2 btn-primary">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-dark">
+                                <i class="fa fa-link"></i> Open Page
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Portfolio
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a asp-controller="OurPortfolios" asp-action="Index" class="btn mx-2 btn-primary">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-dark">
+                                <i class="fa fa-link"></i> Open Page
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Contact Us
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="btn mx-2 btn-primary">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            @*<div class="btn-group">
+                            <button type="button" class="btn  mx-2 btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="true">
+                            Sections
+                            </button>
+                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(-69px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                            <a class="dropdown-item" href="#">About Us</a>
+                            <a class="dropdown-item" href="#">Broadcast Time</a>
+                            </div>
+                            </div>*@
+                            <a href="#" target="_blank" class="btn btn-dark">
+                                <i class="fa fa-link"></i> Open Page
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        News
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                           <a asp-controller="NewsInfo" asp-action="Index" class="btn mx-2 btn-primary">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-dark">
+                                <i class="fa fa-link"></i> Open Page
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

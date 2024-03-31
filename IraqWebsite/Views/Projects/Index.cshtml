@@ -1,0 +1,73 @@
+﻿@model ICollection<IraqWebsite.ViewModels.Projects.ProjectDto>
+@{
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="position-relative " style="background: url(/Images/pic.jpg) center; height:40vh; background-size: cover;">
+        <div class="overlay" style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; background: rgba(0, 0, 0, .5); "></div>
+    <div class="container h-100" style="z-index:4; position:relative">
+        <div class="breadcumb-content  h-100 d-flex align-items-end pb-5">
+                <h1 class="breadcumb-title">@ViewData["Projects"]</h1>
+            </div>
+        </div>
+ </div>
+     <section class="space-top space-extra-bottom put-rtl">
+        <div class="container">
+            <div class="title-area text-center  wow fadeInUp" data-wow-delay="0.2s">
+                <span class="sec-subtitle2">@ViewBag.ProjectSection.SubTitle</span>
+                <h2 class="sec-title4">@ViewBag.ProjectSection.Title</h2>
+            </div>
+           
+            <div class="row wow fadeInUp" data-wow-delay="0.4s">
+                <div class="col-lg-8">
+                    <div class="row">
+                         @foreach(var projects in Model) {
+                        <div class="col-md-6 col-lg-6 mb-5 filter-item Business Agency">
+                                <div class="project-style3 mb-5 ">
+                                    <div class="project-img">
+                                        <img src="@projects.Image" alt="image" style="height: 350px; object-fit: cover;">
+                                    </div>
+                                    <div class="project-bottom">
+                                        <div class="media-body">
+                                        <h3 class="project-title description h5"><a asp-controller="Projects" asp-action="Details" asp-route-item="@projects.Id" class="text-reset">@projects.Title</a></h3>
+                                            <div class="project-category">@projects.Category.Title</div>
+                                        </div>
+                                        <a asp-controller="Projects" asp-action="Details" asp-route-id="@projects.Id" class="icon-btn style4"><i class="fas fa-long-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                    </div>
+                </div>
+               <div class="col-lg-4">
+                <div class="card  p-5" style="border: none; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; overflow-y: scroll; height: 556px;">
+                    <h6 class="mb-4" style="color: var(--theme-color);">@ViewData["ProjectsDate"]</h6>
+                 <a asp-action="Index" asp-route-year="2000" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2000</a>
+                 <a asp-action="Index" asp-route-year="2001" class="mb-4 py-2 " style="border-bottom: 1px solid #44444423; color: #444;"> 2001</a>
+                 <a asp-action="Index" asp-route-year="2002" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2002</a>
+                 <a asp-action="Index" asp-route-year="2003" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2003</a>
+                 <a asp-action="Index" asp-route-year="2004" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2004</a>
+                 <a asp-action="Index" asp-route-year="2005" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2005</a>
+                 <a asp-action="Index" asp-route-year="2006" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2006</a>
+                 <a asp-action="Index" asp-route-year="2007" class="mb-4 py-2 " style="border-bottom: 1px solid #44444423; color: #444;"> 2007</a>
+                 <a asp-action="Index" asp-route-year="2008" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2008</a>
+                 <a asp-action="Index" asp-route-year="2009" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2009</a>
+                 <a asp-action="Index" asp-route-year="2010" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2010</a>
+                 <a asp-action="Index" asp-route-year="2011" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2011</a>
+                 <a asp-action="Index" asp-route-year="2012" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2012</a>
+                 <a asp-action="Index" asp-route-year="2013" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2013</a>
+                 <a asp-action="Index" asp-route-year="2014" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2014</a>
+                 <a asp-action="Index" asp-route-year="2015" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2015</a>
+                 <a asp-action="Index" asp-route-year="2016" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2016</a>
+                 <a asp-action="Index" asp-route-year="2017" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2017</a>
+                 <a asp-action="Index" asp-route-year="2018" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2018</a>
+                 <a asp-action="Index" asp-route-year="2019" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2019</a>
+                 <a asp-action="Index" asp-route-year="2020" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2020</a>
+                 <a asp-action="Index" asp-route-year="2021" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2021</a>
+                 <a asp-action="Index" asp-route-year="2022" class="mb-4 py-2" style="border-bottom: 1px solid #44444423; color: #444;"> 2022</a>
+                </div>
+               </div>
+            </div>
+        </div>
+    </section>
+    

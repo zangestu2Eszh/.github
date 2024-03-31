@@ -1,0 +1,12 @@
+﻿.description {
+    overflow: hidden;
+    text-overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to show */
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    border: none !important;
+    height: auto;
+    padding:5px !important
+    
+}

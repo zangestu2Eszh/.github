@@ -1,0 +1,90 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .grecaptcha-badge {
+        z-index: 999;
+    }
+</style>
+
+<div class="login-box " style="position:relative; z-index:100; width:35%;">
+    <div class="login-logo">
+    </div>
+    <!-- /.login-logo -->
+    <div class="card p-4">
+        <h1 style="background:#fff  " class=" text-center p-2 "><b class="mx-2 text-dark">General Comp. for Elecronic Systems</h1>
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+
+            <form id="account" method="post">
+                <input type="hidden" id="token" asp-for="Input.Token" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <h5 class="text-danger">@ViewBag.SiteKey</h5>
+                <div class="input-group mb-3">
+                    <input asp-for="Input.Email" type="email" class="form-control" placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary mb-4">
+                            <input asp-for="Input.RememberMe" type="checkbox" id="remember">
+                            <label for="remember">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn  btn-block" style="background:#0E5AF2; color:#fff;">Log In</button>
+                    </div>
+                </div>
+            </form>
+            <p class="mb-1">
+                @*<a href="/Identity/Account/ForgotPassword">I forgot my password</a>*@
+            </p>
+
+        </div>
+    </div>
+</div>
+
+@*<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=@Model.SiteKey"></script>
+<script>
+$(function() {
+    grecaptcha.ready(function() {
+        grecaptcha.execute('@Model.SiteKey', { action: 'submit' }).then(function(token) {
+            document.getElementById("token").value = token
+        });
+    });
+});
+</script>*@
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=@Model.SiteKey"></script>
+<script>
+    $(function() {
+        grecaptcha.ready(function() {
+            grecaptcha.execute('@Model.SiteKey', { action: 'submit' })
+                .then(function(token) {
+                    document.getElementById("token").value = token;
+                });
+        });
+    });
+</script>
+

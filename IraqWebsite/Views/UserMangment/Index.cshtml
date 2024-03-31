@@ -1,0 +1,160 @@
+﻿@model List<IraqWebsite.AuthManager.ViewModels.ListUsersViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <a type="button" class="btn btn-primary" asp-action="CreateUser">Create New</a>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    @if (User.HasClaim("Permission", "Role View"))
+                    {
+                        <th>User Role</th>
+                    }
+                    @if (User.HasClaim("Permission", "User Edit"))
+                    {
+                        <th>Status</th>
+                    }
+                    @if (User.HasClaim("Permission", "User Edit"))
+                    {
+                        <th>Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Email</td>
+                        @if (User.HasClaim("Permission", "Role View"))
+                        {
+                            @if (item.Roles != null)
+                            {
+                                <td>
+                                    <select onchange="UpdateUserRole('@item.UserId',this.value)" asp-for="@item.Roles" class="form-control" asp-items="ViewBag.Roles"></select>
+                                </td>
+                            }
+                        }
+                        <td>
+                            @if (User.HasClaim("Permission", "User Edit"))
+                            {
+                                <div>
+                                    @if (item.IsActive == true)
+                                    {
+                                        <div class="form-switch">
+                                            <input checked class="form-check-input" type="checkbox" href="javascript:void(0);" onclick="GetCheack('@item.UserId');">
+                                            <label class="form-check-label" for="check_id"><i class="fas fa-unlock fa-lg" style="color: #4dbf1d;"></i></label>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-switch">
+                                            <input class="form-check-input" type="checkbox" href="javascript:void(0);" onclick="GetCheack('@item.UserId');">
+                                            <label class="form-check-label" for="check_id"><i class="fas fa-lock fa-lg" style="color: #f73302;"></i></label>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </td>
+                        @if (User.HasClaim("Permission", "User Edit"))
+                        {
+                            <td>
+                                <a class="btn btn-primary" asp-controller="UserMangment" asp-action="EditUser" asp-route-userId="@item.UserId"><i class="fas fa-edit"></i></a>
+                                @*<a class="btn btn-danger" href="javascript:void(0);" onclick="GetUser('@item.UserId','@item.Email');" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-trash"></i></a>*@
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="GetUser('@item.UserId','@item.Email');">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label style="color:black;" id="UserEmail"></label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="DeleteUser">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    var x;
+    function GetUser(userId,E) {
+        x = userId
+        document.getElementById('UserEmail').innerHTML = 'you will Delete  ' + E;
+    }
+    console.log(x);
+    $(function() {
+        $("#DeleteUser").click(function() {
+            $.ajax({
+                type: "GET",
+                url: "/UserMangment/DeleteUser",
+                data: { "UserId": x, "DeleteUser": true },
+                success: function() {
+                    window.location.reload();
+                },
+                error: function() {
+                }
+            });
+        });
+    });
+
+
+    function GetCheack(U) {
+        $.ajax({
+            type: "POST",
+            url: "/UserMangment/ConfirmAccount",
+            data: { "UserId": U },
+            success: function() {
+                location.reload();
+            },
+            error: function() {
+            }
+        });
+    }
+
+    function UpdateUserRole(userId, roleName) {
+        $.ajax({
+            type: "POST",
+            url: "/UserMangment/UpdateUserRole",
+            data: { "userId": userId, "roleName": roleName },
+            success: function() {
+            },
+            error: function() {
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,241 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e43a90">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/images/SIG.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/images/SIG.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/SIG.png" />
+    <link rel="manifest" href="~/assets/images/favicons/site.webmanifest" />
+
+    <title> الشركة العامة للانظمة الالكترونية</title>
+    
+       <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons - Place favicon.ico in the root directory -->
+
+    <link rel="manifest" href="~/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--==============================
+	  Google Fonts
+	============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&family=Fira+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <!--==============================
+	    All CSS File
+	============================== -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/layerslider.min.css">
+    <link rel="stylesheet" href="~/assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="~/assets/css/slick.min.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+
+    @await Component.InvokeAsync("Head")
+
+</head>
+
+
+    
+<body class="body">
+
+    <div class="logo1 page-loader flex-column d-flex align-items-center justify-content-center" style="height: 100vh; background:#fff!important; position:fixed; width:100%; overflow:hidden;" id="logo1">
+        <section class="dots-container d-flex justify-content-around">
+            <div class="dot mx-2"></div>
+            <div class="dot mx-2"></div>
+            <div class="dot mx-2"></div>
+            <div class="dot mx-2"></div>
+            <div class="dot mx-2"></div>
+        </section>
+
+    </div>
+
+
+    <div class="page-wrapper" style="overflow-x:hidden !important " >
+        @await Component.InvokeAsync("Header")
+        @RenderBody()
+        @await Component.InvokeAsync("Footer")
+   </div>
+
+   <a href="#" class="scrollToTop scroll-btn"><i class="far fa-arrow-up"></i></a>
+
+    <!-- Dependency Scripts -->
+ <script src="~/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <!-- Slick Slider -->
+    <!-- <script src="assets/js/app.min.js"></script> -->
+    <script src="~/assets/js/slick.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <!-- WOW.js Animation -->
+    <script src="~/assets/js/wow.min.js"></script>
+    <!-- Magnific Popup -->
+    <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Isotope Filter -->
+    <script src="~/assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/assets/js/isotope.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Main Js File -->
+    <script src="~/assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Site Scripts -->
+ 
+
+    <script>
+
+        let LANGUAGES = {
+            EN: "en",
+            AR: "ar"
+        };
+
+         let currentLanguage = localStorage.getItem("language") || LANGUAGES.EN;
+        var currentLangFromBack = "en-US";
+        async function getLanguage() {
+            var result = await axios.get('/Home/GetLanguage').then((response) => {
+                if(response.status == 200) {
+                currentLangFromBack = response.data
+
+                if (currentLangFromBack == 'en-US') {
+                    localStorage.setItem('language','en')
+                    currentLanguage = 'en';
+                }
+                else {
+
+                    localStorage.setItem('language','ar')             
+                    currentLanguage = 'ar';
+                }
+            }
+            });            
+           
+        }
+        getLanguage()
+                
+        
+
+        let title = document.getElementById("page-title");
+        let rtlElements = document.querySelectorAll(".put-rtl");
+        let langButton = document.querySelectorAll(".lang-button");
+        let langButton2 = document.getElementById("lang-button2");
+       
+
+
+        function swapLanguage() {
+            currentLanguage = currentLanguage === LANGUAGES.EN ? LANGUAGES.AR : LANGUAGES.EN;
+            localStorage.setItem("language", currentLanguage);
+           
+        }
+
+        function swapToRtl(language) {
+            if (language === LANGUAGES.EN) {
+                document.body.removeAttribute("dir");
+               
+            } else if (language === LANGUAGES.AR) {
+                document.body.setAttribute("dir", "rtl");
+            }
+
+            rtlElements.forEach(element => element.classList.toggle("rtl", language === LANGUAGES.AR));
+        }
+
+        function updateButton(language) {
+            console.log(language)
+            if (language === LANGUAGES.EN) {
+                langButton.forEach((el)=>{
+                    el.querySelector('span').innerText = "العربية";
+                })
+            } else if (language === LANGUAGES.AR) {
+
+                langButton.forEach((el) => {
+                    el.querySelector('span').innerText = "English";
+                })
+            }
+        }
+
+        if (langButton) {
+            langButton.forEach((button)=>{
+                button.addEventListener("click", swapLanguage);
+            })
+           
+        }
+
+        if (langButton2) {
+            langButton2.addEventListener("click", swapLanguage);
+           
+        }
+         swapToRtl(currentLanguage);
+         updateButton(currentLanguage);
+    </script>
+
+   
+    <script>
+        function showLoader() {
+
+            const loader = document.getElementById('logo1')
+            if (loader) {
+                loader.style.display = 'block';
+            }
+        }
+
+        function hideLoader() {
+            const loader1 = document.getElementById('logo1');
+            if (loader1) {
+                setTimeout(function () {
+                    loader1.classList.add('d-none');
+                }, 1000);
+            }
+        }
+        window.onload = function () {
+            hideLoader();
+
+        };
+
+    </script>
+
+    <script>
+        let title = document.getElementById('company')
+        let cuurentlang = localStorage.getItem('language')
+        if (cuurentlang === 'ar') {
+            title.innerText = 'الشركة العامة للانظمة الالكترونية '
+        } else {
+            title.innerText = 'General Company For Electronic System '
+        }
+    </script>
+
+    <script>
+        var storedScrollTop = localStorage.getItem('scrollPosition');
+        var header = document.querySelector('.navbar-nav');
+        if (storedScrollTop < 300) {
+            header.classList.add('scrolled');
+        }
+        window.addEventListener('scroll', function () {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop < 300) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+        });
+        localStorage.setItem('scrollPosition', scrollTop);
+
+    </script>
+
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+</html>

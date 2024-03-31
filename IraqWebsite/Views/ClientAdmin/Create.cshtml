@@ -1,0 +1,52 @@
+﻿@model IraqWebsite.ViewModels.Client.CreateClient
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="~/dist/css/CustemStyle/ImagePerview.css">
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 d-flex justify-content-between">
+                <h3>Add New Client</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Link" class="control-label"></label>
+                        <input asp-for="Link" class="form-control" />
+                        <span asp-validation-for="Link" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="image-preview image-preview-container">
+                    <div class="preview">
+                        <div id="preview-selected-images"></div>
+                    </div>
+                    <label asp-for="Img" for="file-upload">Upload Image</label>
+                    <input asp-for="Img" class="form-control" type="file" id="file-upload" onchange="previewImages(`image-preview-container`);" />
+                    <span asp-validation-for="Img" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row form-group" style="justify-content: center;">
+                <input type="submit" value="Create" class="btn btn-success col-sm-3 mr-2" />
+                                <a class="btn btn-dark col-sm-3" onclick="JavaScript: window.history.back(1); return false;"  >Back</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/dist/js/CustemScript/ImagePreview.js"></script>
